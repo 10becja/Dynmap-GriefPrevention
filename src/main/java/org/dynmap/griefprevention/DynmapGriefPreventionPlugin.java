@@ -209,7 +209,7 @@ public class DynmapGriefPreventionPlugin extends JavaPlugin {
             x[2] = l1.getX() + 1.0; z[2] = l1.getZ() + 1.0;
             x[3] = l1.getX() + 1.0; z[3] = l0.getZ();
             Long id = claim.getID();
-            String markerid = "GP_" + Long.toHexString(id);
+            String markerid = (id == null) ? null : "GP_" + Long.toHexString(id);
             AreaMarker m = resareas.remove(markerid); /* Existing area? */
             if(m == null) {
                 m = set.createAreaMarker(markerid, owner, false, wname, x, z, false);
