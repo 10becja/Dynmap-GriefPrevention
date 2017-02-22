@@ -60,26 +60,32 @@ public class DynmapGriefPreventionPlugin extends JavaPlugin {
     
     private static class AreaStyle {
         String strokecolor;
+        String expiredStrokeColor;
         double strokeopacity;
         int strokeweight;
         String fillcolor;
+        String expiredFillColor;
         double fillopacity;
         String label;
 
         AreaStyle(FileConfiguration cfg, String path, AreaStyle def) {
             strokecolor = cfg.getString(path+".strokeColor", def.strokecolor);
+            expiredStrokeColor = cfg.getString(path+".expiredStrokeColor", def.expiredStrokeColor);
             strokeopacity = cfg.getDouble(path+".strokeOpacity", def.strokeopacity);
             strokeweight = cfg.getInt(path+".strokeWeight", def.strokeweight);
             fillcolor = cfg.getString(path+".fillColor", def.fillcolor);
+            fillcolor = cfg.getString(path+".expiredFillColor", def.expiredFillColor);
             fillopacity = cfg.getDouble(path+".fillOpacity", def.fillopacity);
             label = cfg.getString(path+".label", null);
         }
 
         AreaStyle(FileConfiguration cfg, String path) {
             strokecolor = cfg.getString(path+".strokeColor", "#FF0000");
+            expiredStrokeColor = cfg.getString(path+".expiredStrokeColor", "#00FF00");
             strokeopacity = cfg.getDouble(path+".strokeOpacity", 0.8);
             strokeweight = cfg.getInt(path+".strokeWeight", 3);
             fillcolor = cfg.getString(path+".fillColor", "#FF0000");
+            fillcolor = cfg.getString(path+".expiredFillColor", "#00FF00");
             fillopacity = cfg.getDouble(path+".fillOpacity", 0.35);
         }
     }
@@ -115,11 +121,13 @@ public class DynmapGriefPreventionPlugin extends JavaPlugin {
             v = "<div class=\"regioninfo\">"+infowindow+"</div>";
         v = v.replace("%owner%", claim.isAdminClaim()?ADMIN_ID:claim.getOwnerName());
         v = v.replace("%area%", Integer.toString(claim.getArea()));
+        v = v.replace("%width%", Integer.toString(claim.getWidth()));
+        v = v.replace("%height%", Integer.toString(claim.getHeight()));
         ArrayList<String> builders = new ArrayList<String>();
         ArrayList<String> containers = new ArrayList<String>();
         ArrayList<String> accessors = new ArrayList<String>();
         ArrayList<String> managers = new ArrayList<String>();
-        claim.getPermissions(builders, containers, accessors, managers);
+        claim.getFriendlyPermissions(builders, containers, accessors, managers);
         /* Build builders list */
         String accum = "";
         for(int i = 0; i < builders.size(); i++) {
@@ -178,8 +186,11 @@ public class DynmapGriefPreventionPlugin extends JavaPlugin {
         int sc = 0xFF0000;
         int fc = 0xFF0000;
         try {
-            sc = Integer.parseInt(as.strokecolor.substring(1), 16);
-            fc = Integer.parseInt(as.fillcolor.substring(1), 16);
+        	boolean isExpired = claim.isEligibleForDibs(); 
+        	String fill = isExpired ? as.expiredFillColor : as.fillcolor;
+        	String stroke = isExpired ? as.expiredStrokeColor : as.strokecolor;
+            sc = Integer.parseInt(stroke.substring(1), 16);
+            fc = Integer.parseInt(fill.substring(1), 16);
         } catch (NumberFormatException nfx) {
         }
         m.setLineStyle(as.strokeweight, as.strokeopacity, sc);
@@ -321,19 +332,6 @@ public class DynmapGriefPreventionPlugin extends JavaPlugin {
         }
     }
     private boolean reload = false;
-    /*
-    private boolean doUpdate = false;
-    
-    private class GPListener implements Listener {
-        private void doUpdate() {
-            if (!doUpdate) {
-                doUpdate = true;
-                GriefPreventionUpdate gp = new GriefPreventionUpdate();
-                gp.repeat = false;
-                getServer().getScheduler().scheduleSyncDelayedTask(DynmapGriefPreventionPlugin.this, gp, 5 * 20);
-            }
-        }
-    }*/
     
     private void activate() {
         /* Now, get markers API */

@@ -18,16 +18,18 @@ use3dregions: false
 
 # Format for popup - substitute values for macros
 # 
-infowindow: '<div class=\"infowindow\">Claim Owner: <span style=\"font-weight:bold;\">%owner%</span><br/>Permission Trust: <span style=\"font-weight:bold;\">%managers%</span><br/>Trust: <span style=\"font-weight:bold;\">%builders%</span><br/>Container Trust: <span style=\"font-weight:bold;\">%containers%</span><br/>Access Trust: <span style=\"font-weight:bold;\">%accessors%</span></div>'
+infowindow: '<div class="infowindow">Claim Owner: <span style="font-weight:bold;">%owner%</span><br/>Permission Trust: <span style="font-weight:bold;">%managers%</span><br/>Trust: <span style="font-weight:bold;">%builders%</span><br/>Container Trust: <span style="font-weight:bold;">%containers%</span><br/>Access Trust: <span style="font-weight:bold;">%accessors%</span><br/><br/>%width% x %height% = %area%</div>'
 
-adminclaiminfowindow: '<div class=\"infowindow\"><span style=\"font-weight:bold;\">Administrator Claim</span><br/>Permission Trust: <span style=\"font-weight:bold;\">%managers%</span><br/>Trust: <span style=\"font-weight:bold;\">%builders%</span><br/>Container Trust: <span style=\"font-weight:bold;\">%containers%</span><br/>Access Trust: <span style=\"font-weight:bold;\">%accessors%</span></div>'
+adminclaiminfowindow: '<div class="infowindow"><span style="font-weight:bold;">Administrator Claim</span><br/>Permission Trust: <span style="font-weight:bold;">%managers%</span><br/>Trust: <span style="font-weight:bold;">%builders%</span><br/>Container Trust: <span style="font-weight:bold;">%containers%</span><br/>Access Trust: <span style="font-weight:bold;">%accessors%</span></div>'
 
 
 regionstyle:
   strokeColor: "#FF0000"
+  expiredStrokeColor: "#00FF00"
   strokeOpacity: 0.8
   strokeWeight: 3
   fillColor: "#FF0000"
+  expiredFillColor: "#00FF00"
   fillOpacity: 0.35
   
 # Optional list for defining the claims to be shown.  If list is non-empty, only claims matching one of the list strings are shown:
