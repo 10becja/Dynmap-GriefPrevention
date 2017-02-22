@@ -74,7 +74,7 @@ public class DynmapGriefPreventionPlugin extends JavaPlugin {
             strokeopacity = cfg.getDouble(path+".strokeOpacity", def.strokeopacity);
             strokeweight = cfg.getInt(path+".strokeWeight", def.strokeweight);
             fillcolor = cfg.getString(path+".fillColor", def.fillcolor);
-            fillcolor = cfg.getString(path+".expiredFillColor", def.expiredFillColor);
+            expiredFillColor = cfg.getString(path+".expiredFillColor", def.expiredFillColor);
             fillopacity = cfg.getDouble(path+".fillOpacity", def.fillopacity);
             label = cfg.getString(path+".label", null);
         }
@@ -85,7 +85,7 @@ public class DynmapGriefPreventionPlugin extends JavaPlugin {
             strokeopacity = cfg.getDouble(path+".strokeOpacity", 0.8);
             strokeweight = cfg.getInt(path+".strokeWeight", 3);
             fillcolor = cfg.getString(path+".fillColor", "#FF0000");
-            fillcolor = cfg.getString(path+".expiredFillColor", "#00FF00");
+            expiredFillColor = cfg.getString(path+".expiredFillColor", "#00FF00");
             fillopacity = cfg.getDouble(path+".fillOpacity", 0.35);
         }
     }
